@@ -5,13 +5,18 @@ FOR I=1 TO W
 	POKE P,128:POKE P+W*23,128
 	P=P+1
 NEXT I
-FOR I=1 TO L
+FOR I=1 TO L-2
 	POKE P,128:POKE P+W-1,128
+	IF I>10 
+		FOR J=1 TO 38
+			POKE P+J,10
+		NEXT J
+	ENDIF
 	P=P+W
 NEXT I
 P=DPEEK(88)+11*40+19
 Q=P
-POKE P-5,10
+
 MOVE = 0: BREAK = 1: BUILD = 2: FIGHT = 3
 STATE = MOVE
 DO
@@ -21,7 +26,7 @@ DO
 	IF STATE = MOVE
 	'check for falling
 	'check for l/r then u/d
-		IF P+W=0
+		IF PEEK(P+W)=0
 			'UPDATE P
 			Q=P+W
 		ELIF DX<>0 OR DY<>0
